@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./styles/styles.css"> <!-- Arquivo CSS externo -->
+  <title>Aceita namorar comigo?</title>
+</head>
+<body>
+
+  <div id="conteudo">
+    <h1>Aceita namorar comigo??</h1>
+    <button onclick="enviarResposta('Sim')">Sim</button>
+    <button onclick="enviarResposta('Não'); desvia(this)">Não</button>
+    <img src="https://i.pinimg.com/originals/ef/96/87/ef9687b36e36605b375b4e9b0cde51db.gif" alt="Imagem">
+    <p class="footer-text">
+      Site criado e gerenciado por 
+      <a href="https://www.instagram.com/_jottazq" target="_blank">Jotta</a>
+    </p>
+    <p class="extra-footer">
+      Clique no nome para saber mais
+    </p>
+  </div>
+
+  <script>
+    function enviarResposta(resposta) {
+      const dados = { resposta, horario: new Date().toISOString() };
+      fetch('/nmr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
+      }).then(() => {
+        if (resposta === 'Sim') {
+          window.location.href = 'https://www.youtube.com'; // Redireciona para o YouTube
+        }
+      }).catch(err => console.log("Erro ao conectar com o servidor: " + err));
+    }
+
+    function desvia(btn) {
+      btn.style.position = 'absolute';
+      btn.style.top = Math.random() * 90 + '%';
+      btn.style.left = Math.random() * 90 + '%';
+    }
+  </script>
+
+</body>
+</html>
